@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace SICUENTANOS_Back.Models.Administrador;
 
 public class Configuracion 

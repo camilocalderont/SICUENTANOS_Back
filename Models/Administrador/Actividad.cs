@@ -17,9 +17,11 @@ public class Actividad
 
     public Boolean BEstado { get; set; }
 
+    public String? PadreId { get; set; }
+
     public DateTime DtFechaCreacion { get; set; }
 
     public DateTime DtFechaActualizacion { get; set; }
 
-    public DateTime DtFechaAnulacion { get; set; }
+    public DateTime? DtFechaAnulacion { get; set; }
 }

@@ -16,9 +16,9 @@ namespace SICUENTANOS_Back.Models.Administrador.Config
 
              EntityTypeBuilder.Property(p=> p.TxDescripcion).IsRequired(false);
 
-            EntityTypeBuilder.Property(p=> p.VcCodigoInterno).IsRequired().HasMaxLength(20);
+            EntityTypeBuilder.Property(p=> p.VcCodigoInterno).IsRequired().HasMaxLength(50);
 
-            EntityTypeBuilder.Property(p=> p.DCodigoIterno).IsRequired();
+            EntityTypeBuilder.Property(p=> p.DCodigoIterno).IsRequired().HasPrecision(17,3);
 
             EntityTypeBuilder.Property(p=> p.BEstado).IsRequired();
 
