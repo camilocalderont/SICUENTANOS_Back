@@ -4,27 +4,27 @@ namespace SICUENTANOS_Back.Models.Administrador.Config
 {
     public class ParametroDetalleConfig
     {
-        public ParametroDetalleConfig(EntityTypeBuilder<ParametroDetalle> EntityTypeBuilder)
+        public ParametroDetalleConfig(EntityTypeBuilder<ParametroDetalle> entity)
         {
-            EntityTypeBuilder.ToTable("ParametroDetalle");
+            entity.ToTable("ParametroDetalle");
 
-            EntityTypeBuilder.HasKey(p=> p.Id); 
+            entity.HasKey(p=> p.Id); 
 
-            EntityTypeBuilder.HasOne(p => p.Parametro).WithMany(p => p.ParametroDetalle).HasForeignKey(p => p.ParametroId);
+            entity.HasOne(p => p.Parametro).WithMany(p => p.ParametroDetalle).HasForeignKey(p => p.ParametroId);
 
-            EntityTypeBuilder.Property(p=> p.VcNombre).IsRequired().HasMaxLength(50);
+            entity.Property(p=> p.VcNombre).IsRequired().HasMaxLength(50);
 
-             EntityTypeBuilder.Property(p=> p.TxDescripcion).IsRequired(false);
+            entity.Property(p=> p.TxDescripcion).IsRequired(false);
 
-            EntityTypeBuilder.Property(p=> p.VcCodigoInterno).IsRequired().HasMaxLength(20);
+            entity.Property(p=> p.VcCodigoInterno).IsRequired().HasMaxLength(50);
 
-            EntityTypeBuilder.Property(p=> p.DCodigoIterno).IsRequired();
+            entity.Property(p=> p.DCodigoIterno).IsRequired(false).HasPrecision(17,3);
 
-            EntityTypeBuilder.Property(p=> p.BEstado).IsRequired();
+            entity.Property(p=> p.BEstado).IsRequired(false);
 
-            EntityTypeBuilder.Property(p=> p.RangoDesde).IsRequired();
+            entity.Property(p=> p.RangoDesde).IsRequired(false);
 
-            EntityTypeBuilder.Property(p=> p.RangoHasta).IsRequired();
+            entity.Property(p=> p.RangoHasta).IsRequired(false);
         }
     }
 }

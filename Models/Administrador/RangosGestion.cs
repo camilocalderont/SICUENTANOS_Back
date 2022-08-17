@@ -16,5 +16,5 @@ public class RangosGestion
 
     public DateTime DtFechaActualizacion { get; set; }
 
-    public DateTime DtFechaEliminacion { get; set; }
+    public DateTime? DtFechaEAnulacion { get; set; }
 }

@@ -4,20 +4,20 @@ namespace SICUENTANOS_Back.Models.Administrador.Config
 {
     public class DiasFestivoConfig
     {
-        public DiasFestivoConfig(EntityTypeBuilder<DiasFestivo> EntityTypeBuilder)
+        public DiasFestivoConfig(EntityTypeBuilder<DiasFestivo> entity)
         {
-            EntityTypeBuilder.ToTable("DiasFestivo");
-            EntityTypeBuilder.HasKey(p=> p.Id); 
+            entity.ToTable("DiasFestivo");
+            entity.HasKey(p=> p.Id); 
 
-            EntityTypeBuilder.Property(p=> p.DtFecha).IsRequired().HasMaxLength(100);
+            entity.Property(p=> p.DtFecha).IsRequired().HasMaxLength(100);
 
-            EntityTypeBuilder.Property(p=> p.VcDescripcion).IsRequired().HasMaxLength(50);
+            entity.Property(p=> p.VcDescripcion).IsRequired(false).HasMaxLength(50);
 
-            EntityTypeBuilder.Property(p=> p.DtFechaCreacion).IsRequired();
+            entity.Property(p=> p.DtFechaCreacion).IsRequired();
 
-            EntityTypeBuilder.Property(p=> p.DtFechaActualizacion).IsRequired();
+            entity.Property(p=> p.DtFechaActualizacion).IsRequired();
 
-            EntityTypeBuilder.Property(p=> p.DtFechaEliminacion).IsRequired();
+            entity.Property(p=> p.DtFechaAnulacion).IsRequired(false);
         }
     }
 }

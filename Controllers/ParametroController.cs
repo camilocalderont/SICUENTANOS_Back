@@ -12,55 +12,55 @@ namespace SICUENTANOS_Back.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ModuloController : ControllerBase
+    public class ParametroController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
 
-        public ModuloController(ApplicationDbContext context)
+        public ParametroController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Modulo
+        // GET: api/Parametro
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Modulo>>> GetModulo()
+        public async Task<ActionResult<IEnumerable<Parametro>>> GetParametro()
         {
-          if (_context.Modulo == null)
+          if (_context.Parametro == null)
           {
               return NotFound();
           }
-            return await _context.Modulo.ToListAsync();
+            return await _context.Parametro.ToListAsync();
         }
 
-        // GET: api/Modulo/5
+        // GET: api/Parametro/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Modulo>> GetModulo(Guid id)
+        public async Task<ActionResult<Parametro>> GetParametro(Guid id)
         {
-          if (_context.Modulo == null)
+          if (_context.Parametro == null)
           {
               return NotFound();
           }
-            var modulo = await _context.Modulo.FindAsync(id);
+            var parametro = await _context.Parametro.FindAsync(id);
 
-            if (modulo == null)
+            if (parametro == null)
             {
                 return NotFound();
             }
 
-            return modulo;
+            return parametro;
         }
 
-        // PUT: api/Modulo/5
+        // PUT: api/Parametro/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutModulo(Guid id, Modulo modulo)
+        public async Task<IActionResult> PutParametro(Guid id, Parametro parametro)
         {
-            if (id != modulo.Id)
+            if (id != parametro.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(modulo).State = EntityState.Modified;
+            _context.Entry(parametro).State = EntityState.Modified;
 
             try
             {
@@ -68,7 +68,7 @@ namespace SICUENTANOS_Back.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ModuloExists(id))
+                if (!ParametroExists(id))
                 {
                     return NotFound();
                 }
@@ -81,44 +81,44 @@ namespace SICUENTANOS_Back.Controllers
             return NoContent();
         }
 
-        // POST: api/Modulo
+        // POST: api/Parametro
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Modulo>> PostModulo(Modulo modulo)
+        public async Task<ActionResult<Parametro>> PostParametro(Parametro parametro)
         {
-          if (_context.Modulo == null)
+          if (_context.Parametro == null)
           {
-              return Problem("Entity set 'ApplicationDbContext.Modulo'  is null.");
+              return Problem("Entity set 'ApplicationDbContext.Parametro'  is null.");
           }
-            _context.Modulo.Add(modulo);
+            _context.Parametro.Add(parametro);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetModulo", new { id = modulo.Id }, modulo);
+            return CreatedAtAction("GetParametro", new { id = parametro.Id }, parametro);
         }
 
-        // DELETE: api/Modulo/5
+        // DELETE: api/Parametro/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteModulo(Guid id)
+        public async Task<IActionResult> DeleteParametro(Guid id)
         {
-            if (_context.Modulo == null)
+            if (_context.Parametro == null)
             {
                 return NotFound();
             }
-            var modulo = await _context.Modulo.FindAsync(id);
-            if (modulo == null)
+            var parametro = await _context.Parametro.FindAsync(id);
+            if (parametro == null)
             {
                 return NotFound();
             }
 
-            _context.Modulo.Remove(modulo);
+            _context.Parametro.Remove(parametro);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool ModuloExists(Guid id)
+        private bool ParametroExists(Guid id)
         {
-            return (_context.Modulo?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Parametro?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

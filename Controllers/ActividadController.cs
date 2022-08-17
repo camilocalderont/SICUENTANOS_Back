@@ -12,63 +12,67 @@ namespace SICUENTANOS_Back.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ModuloController : ControllerBase
+    public class ActividadController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
 
-        public ModuloController(ApplicationDbContext context)
+
+        public ActividadController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Modulo
+        // GET: api/Actividad
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Modulo>>> GetModulo()
+        public async Task<ActionResult<IEnumerable<Actividad>>> GetActividad()
         {
-          if (_context.Modulo == null)
+          if (_context.Actividad == null)
           {
               return NotFound();
           }
-            return await _context.Modulo.ToListAsync();
+            _context.Actividad.ToListAsync();
+            
+            return await _context.Actividad.ToListAsync();
         }
 
-        // GET: api/Modulo/5
+        // GET: api/Actividad/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Modulo>> GetModulo(Guid id)
+        public async Task<ActionResult<Actividad>> GetActividad(Guid id)
         {
-          if (_context.Modulo == null)
+          if (_context.Actividad == null)
           {
               return NotFound();
           }
-            var modulo = await _context.Modulo.FindAsync(id);
+            var actividad = await _context.Actividad.FindAsync(id);
 
-            if (modulo == null)
+            if (actividad == null)
             {
                 return NotFound();
             }
 
-            return modulo;
+            return actividad;
         }
 
-        // PUT: api/Modulo/5
+        // PUT: api/Actividad/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutModulo(Guid id, Modulo modulo)
+        public async Task<IActionResult> PutActividad(Guid id, Actividad actividad)
         {
-            if (id != modulo.Id)
+            if (id != actividad.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(modulo).State = EntityState.Modified;
+            _context.Entry(actividad).State = EntityState.Modified;
 
             try
             {
                 await _context.SaveChangesAsync();
+                 return Ok();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ModuloExists(id))
+                if (!ActividadExists(id))
                 {
                     return NotFound();
                 }
@@ -78,47 +82,47 @@ namespace SICUENTANOS_Back.Controllers
                 }
             }
 
-            return NoContent();
+           
         }
 
-        // POST: api/Modulo
+        // POST: api/Actividad
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Modulo>> PostModulo(Modulo modulo)
+        public async Task<ActionResult<Actividad>> PostActividad(Actividad actividad)
         {
-          if (_context.Modulo == null)
+          if (_context.Actividad == null)
           {
-              return Problem("Entity set 'ApplicationDbContext.Modulo'  is null.");
+              return Problem("Entity set 'ApplicationDbContext.Actividad'  is null.");
           }
-            _context.Modulo.Add(modulo);
+            _context.Actividad.Add(actividad);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetModulo", new { id = modulo.Id }, modulo);
+            return CreatedAtAction("GetActividad", new { id = actividad.Id }, actividad);
         }
 
-        // DELETE: api/Modulo/5
+        // DELETE: api/Actividad/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteModulo(Guid id)
+        public async Task<IActionResult> DeleteActividad(Guid id)
         {
-            if (_context.Modulo == null)
+            if (_context.Actividad == null)
             {
                 return NotFound();
             }
-            var modulo = await _context.Modulo.FindAsync(id);
-            if (modulo == null)
+            var actividad = await _context.Actividad.FindAsync(id);
+            if (actividad == null)
             {
                 return NotFound();
             }
 
-            _context.Modulo.Remove(modulo);
+            _context.Actividad.Remove(actividad);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool ModuloExists(Guid id)
+        private bool ActividadExists(Guid id)
         {
-            return (_context.Modulo?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Actividad?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

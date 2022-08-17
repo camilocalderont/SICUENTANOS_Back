@@ -18,7 +18,7 @@ public class Modulo
 
     public DateTime DtFechaActualizacion { get; set; }
 
-    public DateTime DtFechaAnulacion { get; set; }
+    public DateTime? DtFechaAnulacion { get; set; }
 
     public virtual ICollection<Actividad>? Actividades { get; set; }
 }

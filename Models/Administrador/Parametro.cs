@@ -14,5 +14,7 @@ public class Parametro
 
     public DateTime DtFechaActualizacion { get; set; }
 
+    public DateTime? DtFechaAnulacion { get; set; }
+
     public virtual ICollection<ParametroDetalle>? ParametroDetalle {get;set;}
 }

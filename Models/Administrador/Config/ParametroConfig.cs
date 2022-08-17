@@ -4,21 +4,23 @@ namespace SICUENTANOS_Back.Models.Administrador.Config
 {
     public class ParametroConfig
     {
-        public ParametroConfig(EntityTypeBuilder<Parametro> EntityTypeBuilder)
+        public ParametroConfig(EntityTypeBuilder<Parametro> entity)
         {
-            EntityTypeBuilder.ToTable("Parametro");
+            entity.ToTable("Parametro");
 
-            EntityTypeBuilder.HasKey(p=> p.Id); 
+            entity.HasKey(p=> p.Id); 
 
-            EntityTypeBuilder.Property(p=> p.VcNombre).IsRequired().HasMaxLength(50);
+            entity.Property(p=> p.VcNombre).IsRequired().HasMaxLength(50);
 
-            EntityTypeBuilder.Property(p=> p.VcCodigoInterno).IsRequired().HasMaxLength(20);
+            entity.Property(p=> p.VcCodigoInterno).IsRequired().HasMaxLength(20);
 
-            EntityTypeBuilder.Property(p=> p.BEstado).IsRequired();
+            entity.Property(p=> p.BEstado).IsRequired();
 
-            EntityTypeBuilder.Property(p=> p.DtFechaCreacion).IsRequired();
+            entity.Property(p=> p.DtFechaCreacion).IsRequired();
 
-            EntityTypeBuilder.Property(p=> p.DtFechaActualizacion).IsRequired();
+            entity.Property(p=> p.DtFechaActualizacion).IsRequired();
+
+            entity.Property(p=> p.DtFechaAnulacion).IsRequired(false);
 
         }
     }

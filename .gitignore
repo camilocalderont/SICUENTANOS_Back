@@ -452,4 +452,9 @@ $RECYCLE.BIN/
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+<<<<<<< HEAD
 SICUENTANOS_Back.csproj
+=======
+
+appsettings.json
+>>>>>>> c291fbf26c2ff049e6e73cdcece2d31b6055b628

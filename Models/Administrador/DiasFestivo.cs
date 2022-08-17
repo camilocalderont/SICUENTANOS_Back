@@ -12,5 +12,5 @@ public class DiasFestivo
 
     public DateTime DtFechaActualizacion { get; set; }
 
-    public DateTime DtFechaEliminacion { get; set; }
+    public DateTime? DtFechaAnulacion { get; set; }
 }
