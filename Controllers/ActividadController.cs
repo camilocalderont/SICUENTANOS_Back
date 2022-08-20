@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SICUENTANOS_Back.Models;
 using SICUENTANOS_Back.Models.Administrador;
+using SICUENTANOS_Back.Services;
 
 namespace SICUENTANOS_Back.Controllers
 {
@@ -14,25 +15,24 @@ namespace SICUENTANOS_Back.Controllers
     [ApiController]
     public class ActividadController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ActividadService _actividad;
 
 
-        public ActividadController(ApplicationDbContext context)
+        public ActividadController(ActividadService actividad)
         {
-            _context = context;
+            _actividad = actividad;
         }
 
         // GET: api/Actividad
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Actividad>>> GetActividad()
         {
-          if (_context.Actividad == null)
+          /*if (_actividad.Actividad == null)
           {
               return NotFound();
-          }
-            _context.Actividad.ToListAsync();
+          }*/
             
-            return await _context.Actividad.ToListAsync();
+            return await _actividad.GetAsync();
         }
 
         // GET: api/Actividad/5

@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using SICUENTANOS_Back.Models;
-using SICUENTANOS_Back.Services;
+using SICUENTANOS_Back.Repository;
 var myAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +15,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(opt =>
         opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 ); 
 
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddTransient<IGenericRepository>();
 
 
 //Enable CORS
