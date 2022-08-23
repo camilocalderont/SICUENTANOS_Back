@@ -13,7 +13,7 @@ public class ParametroDetalle
 
     public String? VcCodigoInterno { get; set; }
 
-    public Decimal DCodigoIterno { get; set; }
+    public Decimal? DCodigoIterno { get; set; }
 
     public Boolean BEstado { get; set; }
 

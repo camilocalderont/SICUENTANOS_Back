@@ -15,42 +15,44 @@ namespace SICUENTANOS_Back.Controllers
     [ApiController]
     public class ActividadController : ControllerBase
     {
-        private readonly ActividadService _actividad;
+        private readonly ApplicationDbContext _context;
+        private readonly IGenericService<Actividad> _service;
 
-
-        public ActividadController(ActividadService actividad)
+        public ActividadController(ApplicationDbContext context, IGenericService<Actividad> service)
         {
-            _actividad = actividad;
+            _context = context;
+            _service = service;
         }
 
         // GET: api/Actividad
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Actividad>>> GetActividad()
         {
-          /*if (_actividad.Actividad == null)
-          {
-              return NotFound();
-          }*/
-            
-            return await _actividad.GetAsync();
+            if (!_service.ExistsAsync())
+            {
+                return NotFound();
+            }
+            return await _service.GetAsync();
         }
 
         // GET: api/Actividad/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Actividad>> GetActividad(Guid id)
         {
-          if (_context.Actividad == null)
-          {
-              return NotFound();
-          }
-            var actividad = await _context.Actividad.FindAsync(id);
-
-            if (actividad == null)
+            if (!_service.ExistsAsync())
             {
                 return NotFound();
             }
 
-            return actividad;
+            var actividad = await _service.GetAsync(e=> e.Id == id,e=> e.OrderBy(e=>e.Id),"");
+            //var actividad = await _context.Actividad.FindAsync(id);
+
+            if (actividad.Count < 1)
+            {
+                return NotFound();
+            }
+
+            return actividad[0];
         }
 
         // PUT: api/Actividad/5
@@ -62,27 +64,11 @@ namespace SICUENTANOS_Back.Controllers
             {
                 return BadRequest();
             }
-
-            _context.Entry(actividad).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-                 return Ok();
+            bool updated = await _service.UpdateAsync(id, actividad);
+            if(!updated){
+                 return NotFound();
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ActividadExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-           
+            return Ok();            
         }
 
         // POST: api/Actividad

@@ -12,16 +12,18 @@ namespace SICUENTANOS_Back.Repository
 {
     public interface IGenericRepository<T> where T : class
     {
-        Task<IEnumerable<T>> GetAsync();
+        Task<List<T>> GetAsync();
         
-        Task<IEnumerable<T>> GetAsync(Expression<Func<T, bool>> whereCondition = null,
+        Task<List<T>> GetAsync(Expression<Func<T, bool>> whereCondition = null,
                            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
                            string includeProperties = "");
         Task<bool> CreateAsync(T entity);    
         
-        Task<bool> UpdateAsync(Guid id);
+        Task<bool> UpdateAsync(Guid id,T entity);
 
         Task<bool> DeleteAsync(Guid id);
+
+        bool ExistsAsync();
     }
 
     public class GenericRepository<T> : IGenericRepository<T> where T : class
@@ -36,12 +38,13 @@ namespace SICUENTANOS_Back.Repository
             _context = context;
         }
 
-        public async Task<IEnumerable<T>> GetAsync()
+        public async Task<List<T>> GetAsync()
         {
+            //return await _context.Actividad.ToListAsync();
             return await _context.Set<T>().ToListAsync();
         }
 
-        public async Task<IEnumerable<T>> GetAsync(Expression<Func<T, bool>> whereCondition = null,
+        public async Task<List<T>> GetAsync(Expression<Func<T, bool>> whereCondition = null,
                                   Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
                                   string includeProperties = "")
         {
@@ -88,29 +91,22 @@ namespace SICUENTANOS_Back.Repository
             return created;
         }
 
-        public async Task<bool> UpdateAsync(Guid id)
+        public async Task<bool> UpdateAsync(Guid id,T entity)
         { 
             bool edited = false;
+            _context.Entry(entity).State = EntityState.Modified;
+
             try
             {
-                var entity = await _context.Set<T>().FindAsync(id);
-                if (entity == null)
-                {
-                    return edited;
-                } 
-
-                var editEntity = _context.Set<T>().Update(entity);
-                if (editEntity != null)
-                    edited = true;
-                
-                await  _context.SaveChangesAsync();
-            } 
+                await _context.SaveChangesAsync();
+                edited = true;
+            }
             catch (Exception)
             {
                 throw;
-            }
-
-            return edited;
+        
+            }   
+            return edited;         
         }
 
          public async Task<bool> DeleteAsync(Guid id)
@@ -136,6 +132,16 @@ namespace SICUENTANOS_Back.Repository
             }
 
             return deleted;
+        }
+
+        public bool ExistsAsync()
+        {
+            bool existe = true;
+            if (_context.Set<T>() == null)
+            {
+                existe = false;
+            } 
+            return existe;        
         }
     }
 }

@@ -20,7 +20,7 @@ namespace SICUENTANOS_Back.Models.Administrador.Config
 
             entity.Property(p=> p.DCodigoIterno).IsRequired(false).HasPrecision(17,3);
 
-            entity.Property(p=> p.BEstado).IsRequired(false);
+            entity.Property(p=> p.BEstado).IsRequired();
 
             entity.Property(p=> p.RangoDesde).IsRequired(false);
 

@@ -29,7 +29,7 @@ namespace SICUENTANOS_Back.Controllers
           {
               return NotFound();
           }
-            return await _context.Modulo.ToListAsync();
+            return await _context.Modulo.ToListAsync();            
         }
 
         // GET: api/Modulo/5
